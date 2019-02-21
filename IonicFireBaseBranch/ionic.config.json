@@ -1,5 +1,8 @@
 {
   "name": "IonicFireBaseBranch",
-  "integrations": {},
+  "integrations": {
+    "cordova": {},
+    "capacitor": {}
+  },
   "type": "angular"
 }
