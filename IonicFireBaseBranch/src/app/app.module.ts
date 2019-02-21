@@ -7,6 +7,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import  firebaseconfig from './firebase';
 import { AngularFireModule } from '@angular/fire';
+
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { from } from 'rxjs';
@@ -19,10 +20,10 @@ import { AngularFireAuthModule } from '@angular/fire/auth'
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
+    Home-Settings-Stats,
     AppRoutingModule,
     AngularFireModule.initializeApp(firebaseconfig),
     AngularFireAuthModule
-    
   ],
   providers: [
     StatusBar,

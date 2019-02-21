@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+
 const routes: Routes = [
   {
     path: '',
@@ -17,8 +18,9 @@ const routes: Routes = [
   },
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
   { path: 'register-page', loadChildren: './register-page/register-page.module#RegisterPagePageModule' },
-  { path: 'login-acc', loadChildren: './login-acc/login-acc.module#LoginAccPageModule' }
-
+  { path: 'login-acc', loadChildren: './login-acc/login-acc.module#LoginAccPageModule' },
+  { path: 'stat', loadChildren: './stat/stat.module#StatPageModule' },
+  { path: 'settings', loadChildren: './settings/settings.module#SettingsPageModule' }
 ];
 
 @NgModule({
