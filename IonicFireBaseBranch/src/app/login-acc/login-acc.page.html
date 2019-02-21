@@ -16,7 +16,9 @@
       </h1>
 
       <br>
-    <ion-input type="email" placeholder="Enter your email"></ion-input>
-    <ion-input placeholder="password"></ion-input>
-    <ion-button shape="round" href="/home">Login</ion-button>
+    <ion-input type="email" placeholder="Enter your email" [(ngModel)]="username"></ion-input>
+    <ion-input placeholder="password" [(ngModel)]="password"></ion-input>
+    <ion-button shape="round" (click)="login()">Login
+    <ion-ripple-effect></ion-ripple-effect>
+    </ion-button>
 </ion-content>
