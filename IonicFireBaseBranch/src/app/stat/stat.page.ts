@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js';
 import { NavController } from '@ionic/angular';
+import { Component, ViewChild, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-stat',
