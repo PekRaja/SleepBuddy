@@ -7,6 +7,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import  firebaseconfig from './firebase';
 import { AngularFireModule } from '@angular/fire';
+import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -33,6 +34,7 @@ import { BLE } from '@ionic-native/ble/ngx';
     Facebook,
     StatusBar,
     SplashScreen,
+    FingerprintAIO,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
     
   ],
