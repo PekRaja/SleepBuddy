@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { auth } from 'firebase/app';
 import { Router } from '@angular/router';
 import { UserService } from '../user.service';
+//import { Facebook, FacebookOriginal } from '@ionic-native/facebook';
+import  firebase from '../firebase';
 
 
 @Component({
@@ -14,7 +15,11 @@ export class LoginAccPage implements OnInit {
 
   username : string = "";
   password : string = "";
-  constructor(public afAuth: AngularFireAuth,public router: Router, public user: UserService) { }
+	constructor(public afAuth: AngularFireAuth,public router: Router, 
+		public user: UserService,
+		//private facebook: FacebookOriginal,
+		
+		) { }
 
   ngOnInit() {
   }
@@ -39,4 +44,18 @@ export class LoginAccPage implements OnInit {
 			}
 		}
 	}
+
+	/*facebookLogin(): Promise<any> {
+    return this.facebook.login(['email'])
+      .then( response => {
+        const facebookCredential = firebase.auth.FacebookAuthProvider
+          .credential(response.authResponse.accessToken);
+  
+        firebase.auth().signInWithCredential(facebookCredential)
+          .then( success => { 
+            console.log("Firebase success: " + JSON.stringify(success)); 
+          });
+  
+      }).catch((error) => { console.log(error) });
+  }*/
 }

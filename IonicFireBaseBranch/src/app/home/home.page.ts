@@ -1,6 +1,8 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, NgZone } from '@angular/core';
 import { Chart } from 'chart.js';
 import { NavController } from '@ionic/angular';
+import { BLE } from '@ionic-native/ble/ngx';
+import { BluetoothLE } from '@ionic-native/bluetooth-le/ngx';
 
 @Component({
   selector: 'app-home',
@@ -13,6 +15,29 @@ export class HomePage {
   }
   @ViewChild('barCanvas') barCanvas;
   
+  constructor(private ble2: BLE, private ngZone: NgZone) { }
+  devices:any[] = [];
+  statusMessage: string;
+
+
+  scan(){
+    //this.setStatus('Scanning for Bluetooth LE Devices');
+    this.devices = [];
+
+    this.ble2.scan([],5).subscribe(
+      device => this.onDeviceDiscovered(device),
+      //error => this.scanError(error)
+    );
+    //setTimeout(this.setStatus.bind(this),5000,'Scan complete');
+  }
+
+  onDeviceDiscovered(device){
+    console.log('Discovered ' + JSON.stringify(device,null,2));
+    this.ngZone.run(()=>{
+      this.devices.push(device);
+    })
+    
+  }
   ConnectButtonColor : string = "danger";
   ConnectButtonText : string = "connect";
   
@@ -67,6 +92,7 @@ export class HomePage {
 
     });
 
-}
+    }   
+
 }
 
