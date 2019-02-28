@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { UserService } from '../user.service';
+import { Platform } from '@ionic/angular';
+import { FingerprintAIO, FingerprintOptions } from '@ionic-native/fingerprint-aio/ngx';
 //import { Facebook, FacebookOriginal } from '@ionic-native/facebook';
 import  firebase from '../firebase';
 
@@ -15,11 +17,18 @@ export class LoginAccPage implements OnInit {
 
   username : string = "";
   password : string = "";
-	constructor(public afAuth: AngularFireAuth,public router: Router, 
+  fingerprintOptions: FingerprintOptions;
+	constructor(private fingerprint: FingerprintAIO, private platform: Platform, public afAuth: AngularFireAuth,public router: Router, 
 		public user: UserService,
 		//private facebook: FacebookOriginal,
 		
-		) { }
+		) {
+      this.fingerprintOptions = {
+        clientId: 'fingerprint',
+        clientSecret: 'password',
+        disableBackup: true
+      }
+     }
 
   ngOnInit() {
   }
@@ -42,9 +51,24 @@ export class LoginAccPage implements OnInit {
 			if(err.code === "auth/user-not-found") {
 				console.log("User not found")
 			}
-		}
+    }
 	}
-
+  async showFingerprintDialog(){
+    try{
+      await this.platform.ready();
+      const available = await this.fingerprint.isAvailable();
+      console.log(available);
+      if (available === "finger"){
+        const result = await this.fingerprint.show(this.fingerprintOptions);
+        console.log(result);
+        this.router.navigate(['/home'])
+        console.log("succes")
+      }
+    }
+    catch (e){
+      console.error(e);
+    }  
+  }
 	/*facebookLogin(): Promise<any> {
     return this.facebook.login(['email'])
       .then( response => {

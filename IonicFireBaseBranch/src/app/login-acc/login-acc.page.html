@@ -5,20 +5,10 @@
 </ion-header>
 
 <ion-content padding>
-    <h1>
-        <span>w</span>
-        <span>e</span>
-        <span>l</span>
-        <span>c</span>
-        <span>o</span>
-        <span>m</span>
-        <span>e</span>
-      </h1>
-
-      <br>
     <ion-input type="email" placeholder="Enter your email" [(ngModel)]="username"></ion-input>
     <ion-input placeholder="password" [(ngModel)]="password"></ion-input>
     <ion-button shape="round" (click)="login()">Login
-    <ion-ripple-effect></ion-ripple-effect>
+    </ion-button>
+    <ion-button shape="round" (click)="showFingerprintDialog()">Show Fingerprint Dialog
     </ion-button>
 </ion-content>
