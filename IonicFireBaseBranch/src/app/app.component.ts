@@ -24,6 +24,11 @@ export class AppComponent {
       title: 'Settings',
       url: '/settings',
       icon: 'settings'
+    },
+    {
+      title: 'Bluetooth Scan',
+      url: '/bluetooth-page',
+      icon: 'bluetooth'
     }
   ];
 

@@ -46,11 +46,11 @@ export class HomePage {
   ConnectToDevice(){
       if(this.ConnectButtonColor == "danger"){
           this.ConnectButtonColor = "primary";
-          this.ConnectButtonText = 'connect';
+          this.ConnectButtonText = 'disconnect';
       }
       else if(this.ConnectButtonColor == "primary"){
         this.ConnectButtonColor = "danger";
-        this.ConnectButtonText = 'disconnect';
+        this.ConnectButtonText = 'connect';
       }
   }
   ionViewDidLoad() {
