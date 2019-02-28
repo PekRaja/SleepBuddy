@@ -20,15 +20,16 @@ import { BLE } from '@ionic-native/ble/ngx';
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
-    
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     AngularFireModule.initializeApp(firebaseconfig),
-    AngularFireAuthModule,
+    AngularFireAuthModule
+    
     
   ],
   providers: [
+    
     BLE,
     Facebook,
     StatusBar,
