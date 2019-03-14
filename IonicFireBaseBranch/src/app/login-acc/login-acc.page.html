@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-input type="email" placeholder="Enter your email" [(ngModel)]="username"></ion-input>
+    <ion-input placeholder="password" [(ngModel)]="password"></ion-input>
+    <br>
+    <ion-button shape="round" (click)="login()">Login</ion-button>
+    <br>
+    <ion-button shape="round" (click)="showFingerprintDialog()">Show Fingerprint Dialog</ion-button>
+</ion-content>

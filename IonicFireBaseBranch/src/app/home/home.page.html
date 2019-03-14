@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Home
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div>
+  <h1 align="center">WELCOME USER</h1>
+    <ion-button (click) = "ConnectToDevice()" [(color)] = "ConnectButtonColor" >
+        <p [(innerHtml)] = "ConnectButtonText"></p>
+        <ion-icon  slot="end" name="bluetooth"></ion-icon>
+    </ion-button>
+    <ion-button href="/bluetooth-page"></ion-button>  
+  </div>
+  <ion-card>
+    <ion-card-header>
+      Hours slept overview
+    </ion-card-header>
+    <ion-card-content>
+      <canvas #barCanvas></canvas>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
