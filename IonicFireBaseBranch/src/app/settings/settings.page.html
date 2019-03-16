@@ -5,23 +5,12 @@
 </ion-header>
 
 <ion-content padding>
-    
-  
-    <ion-item>
-        <ion-label>Themes</ion-label>
-        <ion-select placeholder="Select One">
-          <ion-select-option  value="d">Dark</ion-select-option>
-          <ion-select-option value="l">Light</ion-select-option>
-        </ion-select>
-    </ion-item>
-    <ion-item>
-        <ion-label>Default chart overview</ion-label>
-        <ion-select placeholder="Select One">
-            <ion-select-option value="d">Daily</ion-select-option>
-          <ion-select-option value="w">Weekly</ion-select-option>
-          <ion-select-option value="m">Monthly</ion-select-option>
-        </ion-select>
-    </ion-item>
+  <ion-item>
+    <ion-segment (ionChange)="setTheme($event)">
+      <ion-label>theme</ion-label>
+      <ion-segment-button *ngFor="let x of themes" [value]="x" [checked]="isCurrent(x)"> {{ x.Name }} </ion-segment-button>
+    </ion-segment>
+  </ion-item>
     <ion-button>
         Fingerprint setup
         <ion-icon slot="end" name="finger-print"></ion-icon>

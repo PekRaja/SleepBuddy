@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
+import { ITheme, ThemesArray } from '../themes';
+import { ISetThemeEvent } from '../events';
+import { ThemeService } from '../theme.service';
 
 @Component({
   selector: 'app-settings',
@@ -25,16 +28,29 @@ import { RouterModule } from '@angular/router';
   declarations: [SettingsPage]
 })
 export class SettingsPage implements OnInit {
-
-  constructor() { }
-
+  themes: Array<ITheme>;
+  currentTheme: ITheme;
+  constructor(private themeService: ThemeService) { }
   ngOnInit() {
+    this.themes = ThemesArray;
+    // set current theme here! Read from storage or choose the default
+    this.currentTheme = this.getTheme();
   }
-  ChangePassword(){
-    console.log("*Takes user to a page to change password*")
+  getTheme(): ITheme {
+    return this.themeService.getThemeFromStorageOrDefault();
   }
-  RequestsAllData(){
-    console.log("*Sends a zip file to the user with all their data*")
+  setTheme(e: ISetThemeEvent) {
+    this.currentTheme = this.themeService.setTheme(e.detail.value);
   }
-
+  isCurrent(x: ITheme): boolean {
+    if (this.currentTheme === x) {
+      return true;
+    } else { return false; }
+  }
+  ChangePassword() {
+    console.log('*Takes user to a page to change password*');
+  }
+  RequestsAllData() {
+    console.log('*Sends a zip file to the user with all their data*');
+  }
 }
