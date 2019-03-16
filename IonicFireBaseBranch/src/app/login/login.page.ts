@@ -9,8 +9,6 @@ import { ThemeService } from '../theme.service';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage {
-
-registerPage : RegisterPagePage;
-
-  constructor(public navCtrl : NavController, themeService: ThemeService) { }
+registerPage: RegisterPagePage;
+  constructor(public navCtrl: NavController, themeService: ThemeService) { }
 }
