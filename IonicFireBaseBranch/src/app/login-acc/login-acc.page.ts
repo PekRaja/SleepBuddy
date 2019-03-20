@@ -3,8 +3,9 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { UserService } from '../user.service';
 import  firebase from '../firebase';
+import { LoadingController } from '@ionic/angular';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
-
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-login-acc',
@@ -15,10 +16,12 @@ export class LoginAccPage implements OnInit {
 
   username : string = "";
   password : string = "";
-	constructor(public afAuth: AngularFireAuth,public router: Router, 
-		public user: UserService, private fb : Facebook
-		//private facebook: FacebookOriginal,
-		
+  permissions : string[]
+	constructor(public afAuth: AngularFireAuth,
+		public auth:AngularFireAuthModule,
+    public router: Router, 
+    public user: UserService, 
+    private fb : Facebook,
 		) { }
 
   ngOnInit() {
@@ -43,27 +46,13 @@ export class LoginAccPage implements OnInit {
 				console.log("User not found")
 			}
 		}
-  }
+	}
+	
   FacebookLog(){
   this.fb.login(['public_profile', 'user_friends', 'email'])
-  .then((res: FacebookLoginResponse) => console.log('Logged into Facebook!', res))
+  .then((res: FacebookLoginResponse) => console.log('Logged into Facebook!', res,this.router.navigate(['/home'])))
   .catch(e => console.log('Error logging into Facebook', e));
-
-
-  //this.fb.logEvent(this.fb.EVENTS.EVENT_NAME_ADDED_TO_CART);
+	this.fb.logEvent(this.fb.EVENTS.EVENT_NAME_ADDED_TO_CART);
   }
 
-	/*facebookLogin(): Promise<any> {
-    return this.facebook.login(['email'])
-      .then( response => {
-        const facebookCredential = firebase.auth.FacebookAuthProvider
-          .credential(response.authResponse.accessToken);
-  
-        firebase.auth().signInWithCredential(facebookCredential)
-          .then( success => { 
-            console.log("Firebase success: " + JSON.stringify(success)); 
-          });
-  
-      }).catch((error) => { console.log(error) });
-  }*/
 }

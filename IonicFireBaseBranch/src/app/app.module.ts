@@ -12,7 +12,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { from } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
-import { AngularFireAuthModule } from '@angular/fire/auth'
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { BLE } from '@ionic-native/ble/ngx';
 
 
