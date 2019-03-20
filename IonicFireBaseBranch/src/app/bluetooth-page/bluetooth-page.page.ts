@@ -18,6 +18,15 @@ export class BluetoothPagePage implements OnInit {
   constructor(public navCtrl: NavController,private toastCtrl: ToastController,private ble: BLE, private ngZone: NgZone){
 
   }
+  connect(){
+    this.ble.connect('00:15:87:20:AE:DB').subscribe(peripheralData => {
+       console.log(peripheralData);
+    },
+    peripheralData => {
+      console.log("Disconnect");
+    });
+
+  }
 
   scan(){
     //this.setStatus('Scanning for Bluetooth LE Devices');
