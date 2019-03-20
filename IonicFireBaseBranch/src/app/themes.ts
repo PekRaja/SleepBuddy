@@ -65,7 +65,8 @@ const defaults = {
     dark: '#558b6e',
     background: '#f4fff9'
 };
-export const DefaultTheme = themes.Light;
+
+export const DefaultTheme: ITheme = themes.Light;
 export function CSSTextGenerator(colors: IColors) {
     colors = { ...defaults, ...colors };
     const {

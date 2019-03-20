@@ -6,39 +6,39 @@ import { ITheme, DefaultTheme, ThemeType, CSSTextGenerator } from './themes';
   providedIn: 'root'
 })
 export class ThemeService {
-
+  CurrentTheme: ITheme = DefaultTheme;
   constructor(@Inject(DOCUMENT) private document: Document, private storage: Storage) {
-    console.log('Theme service init');
+    console.log('ThemeService: Theme service init');
     this.initialize();
   }
   private initialize() {
-    this.setGlobalCSS(CSSTextGenerator(this.getThemeFromStorageOrDefault().Colors));
+    this.getThemeFromStorageOrDefault();
+    setTimeout(() => {
+      this.setGlobalCSS(CSSTextGenerator(this.CurrentTheme.Colors));
+    }, 1000);
   }
-  getThemeFromStorageOrDefault(): ITheme {
+  getThemeFromStorageOrDefault() {
+    console.log('ThemeService: getThemeFromStorageOrDefault');
     this.storage.get('theme').then((_theme: ITheme) => {
       this.setGlobalCSS(CSSTextGenerator(_theme.Colors));
-      return _theme;
-    }).catch(error => {
-      return DefaultTheme;
-    });
-    return DefaultTheme;
-  }
-  private setGlobalCSS(css: string) {
-    this.document.documentElement.style.cssText = css;
-  }
-  setTheme(t: ITheme): ITheme {
-    this.storage.set('theme', t).then(message => {
-      this.storage.get('theme').then(_theme => {
-        this.setGlobalCSS(CSSTextGenerator(_theme.Colors));
-        return _theme;
-      }).catch(error => {
-        console.log(error);
-        return DefaultTheme;
-      });
+      this.CurrentTheme = _theme;
+      console.log("THEME");
+      console.log(_theme);
     }).catch(error => {
       console.log(error);
-      return DefaultTheme;
+      console.log('ThemeService: setting default theme due to error on promise resolution.');
+      this.CurrentTheme = DefaultTheme;
     });
-    return DefaultTheme;
+ }
+  private setGlobalCSS(css: string) {
+    console.log('ThemeService: setGlobalCSS');
+    this.document.documentElement.style.cssText = css;
+  }
+  writeThemeInStorage() {
+    this.storage.set('theme', this.CurrentTheme).then(() => console.log('theme written in storage')).catch(error => console.log(error));
+  }
+  setTheme(t: ITheme) {
+    this.CurrentTheme = t;
+    this.setGlobalCSS(CSSTextGenerator(this.CurrentTheme.Colors));
   }
 }

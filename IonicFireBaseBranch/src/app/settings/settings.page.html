@@ -1,14 +1,18 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Settings</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Settings
+    </ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content padding>
   <ion-item>
-    <ion-segment (ionChange)="setTheme($event)">
+    <ion-segment>
       <ion-label>theme</ion-label>
-      <ion-segment-button *ngFor="let x of themes" [value]="x" [checked]="isCurrent(x)"> {{ x.Name }} </ion-segment-button>
+      <ion-segment-button *ngFor="let x of themes" [value]="x" [checked]="isCurrent(x)" (ionSelect)="setTheme($event, x)"> {{ x.Name }} </ion-segment-button>
     </ion-segment>
   </ion-item>
     <ion-button>

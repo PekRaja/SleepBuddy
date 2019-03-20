@@ -1,4 +1,4 @@
-import { Component, OnInit, NgModule } from '@angular/core';
+import { Component, OnInit, NgModule, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
@@ -11,8 +11,8 @@ import { ThemeService } from '../theme.service';
   selector: 'app-settings',
   templateUrl: './settings.page.html',
   styleUrls: ['./settings.page.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-
 @NgModule({
   imports: [
     CommonModule,
@@ -27,23 +27,26 @@ import { ThemeService } from '../theme.service';
   ],
   declarations: [SettingsPage]
 })
-export class SettingsPage implements OnInit {
+export class SettingsPage implements OnInit, OnDestroy {
   themes: Array<ITheme>;
-  currentTheme: ITheme;
   constructor(private themeService: ThemeService) { }
   ngOnInit() {
     this.themes = ThemesArray;
     // set current theme here! Read from storage or choose the default
-    this.currentTheme = this.getTheme();
   }
   getTheme(): ITheme {
-    return this.themeService.getThemeFromStorageOrDefault();
+    console.log('SettingsPage: getTheme');
+    return this.themeService.CurrentTheme;
   }
-  setTheme(e: ISetThemeEvent) {
-    this.currentTheme = this.themeService.setTheme(e.detail.value);
+  setTheme(e: ISetThemeEvent, x: ITheme) {
+    console.log('SettingsPage: ISetThemeEvent is called');
+    this.themeService.setTheme(x);
   }
   isCurrent(x: ITheme): boolean {
-    if (this.currentTheme === x) {
+    console.log('SettingsPage: iscurrent');
+    console.log('x.Name: ' + x.Name);
+    console.log('current.Name: ' + this.themeService.CurrentTheme.Name);
+    if (this.themeService.CurrentTheme === x) {
       return true;
     } else { return false; }
   }
@@ -52,5 +55,9 @@ export class SettingsPage implements OnInit {
   }
   RequestsAllData() {
     console.log('*Sends a zip file to the user with all their data*');
+  }
+  ngOnDestroy() {
+    console.log('writing theme to storage');
+    this.themeService.writeThemeInStorage();
   }
 }
