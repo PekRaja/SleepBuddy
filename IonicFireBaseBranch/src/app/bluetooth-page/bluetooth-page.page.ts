@@ -2,6 +2,7 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { NavController, ToastController } from '@ionic/angular';
 import { BLE } from '@ionic-native/ble/ngx';
 
+
 @Component({
   selector: 'app-bluetooth-page',
   templateUrl: './bluetooth-page.page.html',
@@ -15,17 +16,22 @@ export class BluetoothPagePage implements OnInit {
   devices:any[] = [];
   statusMessage: string;
 
-  constructor(public navCtrl: NavController,private toastCtrl: ToastController,private ble: BLE, private ngZone: NgZone){
+  constructor(public navCtrl: NavController,public toastController: ToastController,private ble: BLE, private ngZone: NgZone){
 
   }
   connect(){
-    this.ble.connect('00:15:87:20:AE:DB').subscribe(peripheralData => {
+    this.ble.connect('00:15:87:20:AE:DB').subscribe(async peripheralData => {
+      const toast = await this.toastController.create({
+        message: 'Connected',
+        duration: 2000
+      });
+      toast.present();
        console.log(peripheralData);
     },
     peripheralData => {
       console.log("Disconnect");
     });
-
+   
   }
 
   scan(){
@@ -47,6 +53,9 @@ export class BluetoothPagePage implements OnInit {
       //this.error.push(error);
       
     })
+    
+  }
+  async presentToast() {
     
   }
 }
