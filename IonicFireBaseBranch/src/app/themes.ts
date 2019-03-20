@@ -25,15 +25,15 @@ export const themes = {
         Name: 'Dark',
         Type: ThemeType.Dark,
         Colors: {
-            primary: '#e0ac9d',
-            secondary: '#e88873',
-            tertiary: '#a37774',
+            primary: '#FAA613',
+            secondary: '#FAA613',
+            tertiary: '#FAA613',
             success: '#808040',
             warning: '#e88873',
             danger: '#e0ac9d',
             light: '#ffff9f',
             medium: '#e88873',
-            dark: '#a37774',
+            dark: '#FAA613',
             background: '#536B78'
         }
     }, Light: {
@@ -87,6 +87,7 @@ export function CSSTextGenerator(colors: IColors) {
       --ion-color-base: ${light};
       --ion-color-contrast: ${dark};
       --ion-background-color: ${background};
+      --ion-foreground-color: ${Color(background).lighten(0.05)};
       --ion-text-color: ${dark};
       --ion-toolbar-background-color: ${contrast(background, 0.1)};
       --ion-toolbar-text-color: ${contrast(dark, 0.1)};
@@ -126,6 +127,7 @@ export function CSSTextGenerator(colors: IColors) {
       --ion-color-light-contrast: ${contrast(light)};
       --ion-color-light-shade: ${Color(light).darken(shadeRatio)};
       --ion-color-light-tint: ${Color(light).lighten(tintRatio)};
+
     `;
 }
 export function contrast(color, ratio = 0.8) {
