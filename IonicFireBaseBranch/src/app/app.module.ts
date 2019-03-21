@@ -10,7 +10,7 @@ import { AngularFireModule } from '@angular/fire';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { AngularFireAuthModule } from '@angular/fire/auth'
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { BLE } from '@ionic-native/ble/ngx';
 import { IonicStorageModule } from '@ionic/storage';
 import { ThemeService } from './theme.service';

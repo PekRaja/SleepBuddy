@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
-import { ITheme, ThemesArray } from '../themes';
+import { ITheme, ThemesArray, ThemeType } from '../themes';
 import { ISetThemeEvent } from '../events';
 import { ThemeService } from '../theme.service';
 import { GraphicService } from '../graphic.service';
@@ -46,6 +46,16 @@ export class SettingsPage implements OnInit, OnDestroy {
   graphName(g: number): string {
     return GraphicName[g];
   }
+  graphicReady(): boolean {
+    console.log('graphicReady:');
+    if (this.graphics.CurrentGraphic != null) {
+      console.log('true');
+      return true;
+    } else {
+      console.log('false');
+      return false;
+    }
+  }
   isCurrentGraph(name: GraphicName) {
     if (name === this.graphics.CurrentGraphic.Name) {
       return true;
@@ -58,13 +68,23 @@ export class SettingsPage implements OnInit, OnDestroy {
   getTheme(): ITheme {
     return this.themeService.CurrentTheme;
   }
-  setTheme(e: ISetThemeEvent, x: ITheme) {
-    this.themeService.setTheme(x);
+  setTheme(t: ITheme) {
+    this.themeService.setTheme(t);
   }
-  isCurrent(x: ITheme): boolean {
-    if (this.themeService.CurrentTheme === x) {
+  isCurrentTheme(type: ThemeType): boolean {
+    if (this.themeService.CurrentTheme.Type === type) {
       return true;
     } else { return false; }
+  }
+  themeReady(): boolean {
+    console.log('themeReady:');
+    if (this.themeService.CurrentTheme != null) {
+      console.log('true');
+      return true;
+    } else {
+      console.log('false');
+      return false;
+    }
   }
   // User profile
   ChangePassword() {
