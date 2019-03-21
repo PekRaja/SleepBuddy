@@ -22,7 +22,13 @@ export class HomePage implements OnInit {
   constructor(private ble2: BLE, private ngZone: NgZone, private themeService: ThemeService, private graphics: GraphicService) { }
   ngOnInit(): void {
     this.ionViewDidLoad();
+  }
+  ionViewDidEnter() {
     this.currentGraph = this.graphics.CurrentGraphic;
+    console.log('graphic set');
+  }
+  graphName(g: number): string {
+    return GraphicName[g];
   }
   scan() {
     // this.setStatus('Scanning for Bluetooth LE Devices');

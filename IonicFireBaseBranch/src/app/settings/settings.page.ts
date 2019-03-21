@@ -38,6 +38,7 @@ export class SettingsPage implements OnInit, OnDestroy {
     this.graphs = Graphics;
   }
   ngOnDestroy() {
+    // TODO: this only needs to be done if the values have been changed since reading them from storage
     this.themeService.writeThemeInStorage();
     this.graphics.writeGraphToStorage();
   }

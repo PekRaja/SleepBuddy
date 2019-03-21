@@ -19,8 +19,8 @@
     <ion-button href="/bluetooth-page"></ion-button>  
   </div>
   <ion-card>
-    <ion-card-header>
-      Graphic will be here ! {{ currentGraph.Name }}
+    <ion-card-header *ngIf="currentGraph" color="primary">
+      Graphic will be here ! {{ graphName(currentGraph.Name) }}
     </ion-card-header>
     <ion-card-content>
       <canvas #barCanvas></canvas>

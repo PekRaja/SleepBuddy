@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { Graphic, Graphics, GraphicName, GRAPHIC_STORAGE } from './graphics';
+import { Graphic, Graphics, GraphicName, GRAPHIC_STORAGE, DEFAULT_GRAPH } from './graphics';
 @Injectable({
   providedIn: 'root'
 })
 export class GraphicService {
   CurrentGraphic: Graphic;
   constructor(private storage: Storage) {
-    this.CurrentGraphic = Graphics[GraphicName.Night];
-    // this.writeGraphToStorage();
     this.readGraphFromStorage();
   }
   getGraphic() {
@@ -22,7 +20,7 @@ export class GraphicService {
       console.log('readFromStorage: graphicName: ' + g);
       if (g != null) {
         this.CurrentGraphic = Graphics[g];
-      }
+      } else { this.CurrentGraphic = DEFAULT_GRAPH; }
     }).catch(error => {
       console.log(error);
     });

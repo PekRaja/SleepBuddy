@@ -22,7 +22,6 @@ export class Graphic {
     LabelX: string;
     LabelY: string;
     Colors: Array<string>;
-
     constructor(_name, _data) {
         this.Name = _name;
         this.Data = _data;
@@ -54,3 +53,4 @@ export const Graphics: Array<Graphic> = new Array(
         5.23, 7.14, 7.03
      ])
 );
+export const DEFAULT_GRAPH: Graphic = Graphics[GraphicName.Night];
