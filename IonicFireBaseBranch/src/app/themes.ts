@@ -26,8 +26,8 @@ export const themes = {
         Type: ThemeType.Dark,
         Colors: {
             primary: '#FAA613',
-            secondary: '#FAA613',
-            tertiary: '#FAA613',
+            secondary: '#fffffc',
+            tertiary: '#9cfc97',
             success: '#808040',
             warning: '#e88873',
             danger: '#e0ac9d',
@@ -48,7 +48,7 @@ export const themes = {
             danger: '#ff8080',
             light: '#c9f2dc',
             medium: '#8bb7a0',
-            dark: '#558b6e',
+            dark: '#515b3a',
             background: '#f4fff9'
         }
     }
@@ -62,7 +62,7 @@ const defaults = {
     danger: '#ff8080',
     light: '#c9f2dc',
     medium: '#8bb7a0',
-    dark: '#558b6e',
+    dark: '#515b3a',
     background: '#f4fff9'
 };
 

@@ -6,6 +6,8 @@ import { RouterModule } from '@angular/router';
 import { ITheme, ThemesArray } from '../themes';
 import { ISetThemeEvent } from '../events';
 import { ThemeService } from '../theme.service';
+import { GraphicService } from '../graphic.service';
+import { Graphic, Graphics, GraphicName } from '../graphics';
 
 @Component({
   selector: 'app-settings',
@@ -29,35 +31,45 @@ import { ThemeService } from '../theme.service';
 })
 export class SettingsPage implements OnInit, OnDestroy {
   themes: Array<ITheme>;
-  constructor(private themeService: ThemeService) { }
+  graphs: Array<Graphic>;
+  constructor(private themeService: ThemeService, private graphics: GraphicService) { }
   ngOnInit() {
     this.themes = ThemesArray;
-    // set current theme here! Read from storage or choose the default
+    this.graphs = Graphics;
   }
+  ngOnDestroy() {
+    this.themeService.writeThemeInStorage();
+    this.graphics.writeGraphToStorage();
+  }
+  // Graphics
+  graphName(g: number): string {
+    return GraphicName[g];
+  }
+  isCurrentGraph(name: GraphicName) {
+    if (name === this.graphics.CurrentGraphic.Name) {
+      return true;
+    } else { return false; }
+  }
+  setGraph(g: Graphic) {
+    this.graphics.setGraphic(g);
+  }
+  // Themes
   getTheme(): ITheme {
-    console.log('SettingsPage: getTheme');
     return this.themeService.CurrentTheme;
   }
   setTheme(e: ISetThemeEvent, x: ITheme) {
-    console.log('SettingsPage: ISetThemeEvent is called');
     this.themeService.setTheme(x);
   }
   isCurrent(x: ITheme): boolean {
-    console.log('SettingsPage: iscurrent');
-    console.log('x.Name: ' + x.Name);
-    console.log('current.Name: ' + this.themeService.CurrentTheme.Name);
     if (this.themeService.CurrentTheme === x) {
       return true;
     } else { return false; }
   }
+  // User profile
   ChangePassword() {
     console.log('*Takes user to a page to change password*');
   }
   RequestsAllData() {
     console.log('*Sends a zip file to the user with all their data*');
-  }
-  ngOnDestroy() {
-    console.log('writing theme to storage');
-    this.themeService.writeThemeInStorage();
   }
 }

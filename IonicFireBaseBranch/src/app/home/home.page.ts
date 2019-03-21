@@ -4,7 +4,8 @@ import { NavController } from '@ionic/angular';
 import { BLE } from '@ionic-native/ble/ngx';
 import { BluetoothLE } from '@ionic-native/bluetooth-le/ngx';
 import { ThemeService } from '../theme.service';
-
+import { GraphicService } from '../graphic.service';
+import { GraphicName, Graphic } from '../graphics';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -17,9 +18,11 @@ export class HomePage implements OnInit {
   ConnectButtonColor = 'danger';
   ConnectButtonText = 'connect';
   barChart: any;
-  constructor(private ble2: BLE, private ngZone: NgZone, private themeService: ThemeService) { }
+  currentGraph: Graphic;
+  constructor(private ble2: BLE, private ngZone: NgZone, private themeService: ThemeService, private graphics: GraphicService) { }
   ngOnInit(): void {
     this.ionViewDidLoad();
+    this.currentGraph = this.graphics.CurrentGraphic;
   }
   scan() {
     // this.setStatus('Scanning for Bluetooth LE Devices');
