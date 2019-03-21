@@ -14,7 +14,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth'
 import { BLE } from '@ionic-native/ble/ngx';
 import { IonicStorageModule } from '@ionic/storage';
 import { ThemeService } from './theme.service';
-
+import { GraphicService } from './graphic.service';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -35,6 +35,7 @@ import { ThemeService } from './theme.service';
     SplashScreen,
     FingerprintAIO,
     ThemeService,
+    GraphicService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

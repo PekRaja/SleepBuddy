@@ -19,8 +19,8 @@
     <ion-button href="/bluetooth-page"></ion-button>  
   </div>
   <ion-card>
-    <ion-card-header>
-      Hours slept overview
+    <ion-card-header *ngIf="currentGraph" color="primary">
+      {{ graphName(currentGraph.Name) }}
     </ion-card-header>
     <ion-card-content>
       <canvas #barCanvas></canvas>
