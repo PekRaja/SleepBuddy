@@ -9,15 +9,15 @@
 <ion-content padding>
   <ion-item>
     <ion-segment>
-        <ion-label slot="start" color="dark">Theme</ion-label>
+      <ion-label slot="start" color="dark">Theme</ion-label>
       <ion-segment-button *ngFor="let x of themes" [value]="x" [checked]="isCurrent(x)"
         (ionSelect)="setTheme($event, x)"> {{ x.Name }} </ion-segment-button>
     </ion-segment>
   </ion-item>
   <ion-item>
     <ion-segment>
-        <ion-label slot="start" color="dark">Description</ion-label>
-      <ion-segment-button *ngFor="let x of graphs" [value]="x" [checked]="isCurrentGraph(x.Name)"
+      <ion-label slot="start" color="dark">Description</ion-label>
+      <ion-segment-button slot="end" *ngFor="let x of graphs" [value]="x" [checked]="isCurrentGraph(x.Name)"
       (ionSelect)="setGraph(x)"> {{ graphName(x.Name) }}</ion-segment-button>
     </ion-segment>
   </ion-item>
