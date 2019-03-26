@@ -18,7 +18,7 @@ export class ListPage implements OnInit {
     }
   }
 
-  buttonClick(){
+  buttonClick() {
     
   }
   ngOnInit() {
