@@ -1,13 +1,19 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+    </ion-buttons>
     <ion-title>
       BLE Scanner
     </ion-title>
-    <ion-buttons end>
-      <button ion-button (click)="scan()">
-        Scan
-      </button>
-    </ion-buttons>
+  <ion-button (click)="scan()" slot="end">
+      <ion-icon name="Bluetooth"></ion-icon>
+      <p>Scan</p>
+    </ion-button>
+    <ion-button (click)="connect()">
+      <ion-icon name="Bluetooth"></ion-icon>
+      <p>Connect</p>
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 

@@ -91,5 +91,9 @@
         <variable name="FACEBOOK_ANDROID_SDK_VERSION" value="4.40.0" />
     </plugin>
     <plugin name="cordova-plugin-nativestorage" spec="2.3.2" />
-    <engine name="android" spec="^7.1.4" />
+    <plugin name="cordova-plugin-bluetoothle" spec="4.5.3" />
+    <plugin name="cordova-plugin-ble-central" spec="1.2.2" />
+    <plugin name="cordova-plugin-fingerprint-aio" spec="~1.6.0" />
+    <plugin name="cordova-sqlite-storage" spec="3.2.0" />
+    <engine name="android" spec="7.1.4" />
 </widget>
