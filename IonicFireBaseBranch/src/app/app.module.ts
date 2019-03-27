@@ -29,6 +29,7 @@ import { GraphicService } from './graphic.service';
     })
   ],
   providers: [
+    
     BLE,
     Facebook,
     StatusBar,
