@@ -100,7 +100,7 @@
       },
       "cordova-plugin-ble-central": {},
       "cordova-plugin-bluetoothle": {},
-      "cordova-plugin-nativestorage": {}
+      "cordova-plugin-nativestorage": {},
       "cordova-plugin-fingerprint-aio": {},
       "cordova-sqlite-storage": {}
     },
