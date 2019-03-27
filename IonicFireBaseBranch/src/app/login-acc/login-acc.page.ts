@@ -6,6 +6,7 @@ import { Platform } from '@ionic/angular';
 import { FingerprintAIO, FingerprintOptions } from '@ionic-native/fingerprint-aio/ngx';
 //import { Facebook, FacebookOriginal } from '@ionic-native/facebook';
 import  firebase from '../firebase';
+import { ThemeService } from '../theme.service';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class LoginAccPage implements OnInit {
 	constructor(private fingerprint: FingerprintAIO, private platform: Platform, public afAuth: AngularFireAuth,public router: Router, 
 		public user: UserService,
 		//private facebook: FacebookOriginal,
-		
+		private themeService: ThemeService
 		) {
       this.fingerprintOptions = {
         clientId: 'fingerprint',

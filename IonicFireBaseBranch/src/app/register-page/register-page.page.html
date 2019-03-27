@@ -8,11 +8,10 @@
 <ion-content padding>
   
     <ion-input type="email" placeholder="Enter your email" [(ngModel)]="username"></ion-input>
- 
     <ion-input type="password" placeholder="password" [(ngModel)]="password"></ion-input>
-    <ion-input type="password" placeholder="password" [(ngModel)]="Checkpassword"></ion-input>
+    <ion-input type="password" placeholder="retype password" [(ngModel)]="Checkpassword"></ion-input>
     <br>
-    <ion-button shape="round" color="warning" (click)="register()">Register
+    <ion-button shape="round" (click)="register()">Register
       <ion-ripple-effect></ion-ripple-effect>
     </ion-button>
     <br>
