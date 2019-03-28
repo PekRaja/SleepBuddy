@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
 import { AlertController} from '@ionic/angular';
 import { Router } from '@angular/router';
+import { ThemeService } from '../theme.service';
 
 @Component({
   selector: 'app-register-page',
@@ -16,7 +17,8 @@ export class RegisterPagePage implements OnInit {
 
   constructor(public afAuth: AngularFireAuth,
     public alert : AlertController,
-    public route: Router
+    public route: Router,
+    private themeService: ThemeService
     ) { }
 
   ngOnInit() {

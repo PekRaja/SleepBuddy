@@ -7,30 +7,30 @@
   </ion-toolbar>
 </ion-header>
 <ion-content padding>
-  <ion-item>
-    <ion-segment>
-      <ion-label slot="start" color="dark">Theme</ion-label>
-      <ion-segment-button *ngFor="let x of themes" [value]="x" [checked]="isCurrent(x)"
-        (ionSelect)="setTheme($event, x)"> {{ x.Name }} </ion-segment-button>
+  <ion-item *ngIf="themeReady()">
+    <ion-segment color="secondary">
+      <ion-label slot="start" color="secondary">Theme</ion-label>
+      <ion-segment-button *ngFor="let x of themes" [value]="x" [checked]="isCurrentTheme(x.Type)"
+        (ionSelect)="setTheme(x)"> {{ x.Name }} </ion-segment-button>
     </ion-segment>
   </ion-item>
-  <ion-item>
-    <ion-segment>
-      <ion-label slot="start" color="dark">Description</ion-label>
+  <ion-item *ngIf="graphicReady()">
+    <ion-segment color="secondary">
+      <ion-label slot="start" color="secondary">Graph</ion-label>
       <ion-segment-button slot="end" *ngFor="let x of graphs" [value]="x" [checked]="isCurrentGraph(x.Name)"
-      (ionSelect)="setGraph(x)"> {{ graphName(x.Name) }}</ion-segment-button>
+        (ionSelect)="setGraph(x)"> {{ graphName(x.Name) }}</ion-segment-button>
     </ion-segment>
   </ion-item>
   <ion-card class="ion-padding">
     <ion-text color="secondary">
-      <h1>Tom Peeters</h1>
+      <h1>First Lastname</h1>
     </ion-text>
     <img src="http://www.sclance.com/pngs/snorlax-png/snorlax_png_1265122.png">
-    <ion-label color="secondary">EMAIL: TomPeeters@gmail.be</ion-label>
+    <ion-label class="ion-padding" color="secondary">EMAIL: TomPeeters@gmail.be</ion-label>
     <br>
-    <ion-label color="tertiary">JOINED ON: 21/03/2019</ion-label>
+    <ion-label class="ion-padding" color="secondary">JOINED: 21/03/2019</ion-label>
     <br>
-    <ion-button color="secondary">Change password</ion-button>
-    <ion-button color="secondary">Request data</ion-button>
+    <ion-button color="secondary" class="ion-padding">Change password</ion-button>
+    <ion-button color="secondary" class="ion-padding">Request data</ion-button>
   </ion-card>
 </ion-content>

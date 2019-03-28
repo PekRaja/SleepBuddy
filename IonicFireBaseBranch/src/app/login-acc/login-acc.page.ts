@@ -20,15 +20,16 @@ export class LoginAccPage implements OnInit {
   password : string = "";
   permissions : string[]
   fingerprintOptions: FingerprintOptions;
-	constructor(public afAuth: AngularFireAuth,
+	constructor(
+	    private fingerprint: FingerprintAIO, 
+	    private platform: Platform, 
+	    public afAuth: AngularFireAuth,
+	    public router: Router, 
+		public user: UserService,
 		public auth:AngularFireAuthModule,
-    public router: Router, 
-    public user: UserService, 
-    private fb : Facebook,
-		private fingerprint: FingerprintAIO, 
-    private platform: Platform
-    ) {
-  this.fingerprintOptions = {
+		private fb : Facebook,
+        ) {
+      this.fingerprintOptions = {
         clientId: 'fingerprint',
         clientSecret: 'password',
         disableBackup: true
