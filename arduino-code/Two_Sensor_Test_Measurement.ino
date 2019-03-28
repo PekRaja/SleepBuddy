@@ -48,7 +48,7 @@ void loop()
     {
       //Serial.write(BTSerial.read());
       String line = BTSerial.readStringUntil('\r');
-      Serial.print(line);
+      //Serial.print(line);
       if(line == "+CONNECTED")
       {
         Serial.println("On");
@@ -69,18 +69,6 @@ void loop()
     }
     if (counter < 1)
     {
-      BTSerial.print("Time(ms)");
-      BTSerial.print(" TS(ms)");
-      BTSerial.print(" Time(min)");
-      BTSerial.print(" Time(h)");
-      BTSerial.print(" MinA");
-      BTSerial.print(" MaxA");
-      BTSerial.print(" MinB");
-      BTSerial.print(" MaxB");
-      BTSerial.print(" DifA");
-      BTSerial.print(" DifB");
-      BTSerial.print(" AvgA");
-      BTSerial.println(" AvgB");
       Serial.print("Time(ms)");
       Serial.print(" TS(ms)");
       Serial.print(" Time(min)");
@@ -131,7 +119,7 @@ void loop()
     AvgA = (float)SumA/vari;
     AvgB = (float)SumB/vari;
     DifA = MaxA-MinA;
-    DifB = MaxB-MinA;
+    DifB = MaxB-MinB;
     if(DifA > 100)
     {
       DifA = 100;
@@ -140,29 +128,9 @@ void loop()
     {
       DifB = 100;
     }
-    BTSerial.print(previousMillis);
-    BTSerial.print(" ");
-    BTSerial.print(interval);
-    BTSerial.print(" ");
-    BTSerial.print(m);
-    BTSerial.print(" ");
-    BTSerial.print(h,5);
-    BTSerial.print(" ");
-    BTSerial.print(MinA);
-    BTSerial.print(" ");
-    BTSerial.print(MaxA);
-    BTSerial.print(" ");
-    BTSerial.print(MinB);
-    BTSerial.print(" ");
-    BTSerial.print(MaxB);
-    BTSerial.print(" ");
     BTSerial.print(DifA);
     BTSerial.print(" ");
-    BTSerial.print(DifB);
-    BTSerial.print(" ");
-    BTSerial.print(AvgA);
-    BTSerial.print(" ");
-    BTSerial.println(AvgB);
+    BTSerial.println(DifB);
     Serial.print(previousMillis);
     Serial.print(" ");
     Serial.print(interval);
