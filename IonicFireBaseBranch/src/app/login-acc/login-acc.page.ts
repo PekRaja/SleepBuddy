@@ -4,10 +4,10 @@ import { Router } from '@angular/router';
 import { UserService } from '../user.service';
 import { Platform } from '@ionic/angular';
 import { FingerprintAIO, FingerprintOptions } from '@ionic-native/fingerprint-aio/ngx';
-//import { Facebook, FacebookOriginal } from '@ionic-native/facebook';
 import  firebase from '../firebase';
-import { ThemeService } from '../theme.service';
-
+import { LoadingController } from '@ionic/angular';
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-login-acc',
@@ -18,18 +18,23 @@ export class LoginAccPage implements OnInit {
 
   username : string = "";
   password : string = "";
+  permissions : string[]
   fingerprintOptions: FingerprintOptions;
-	constructor(private fingerprint: FingerprintAIO, private platform: Platform, public afAuth: AngularFireAuth,public router: Router, 
+	constructor(
+	    private fingerprint: FingerprintAIO, 
+	    private platform: Platform, 
+	    public afAuth: AngularFireAuth,
+	    public router: Router, 
 		public user: UserService,
-		//private facebook: FacebookOriginal,
-		private themeService: ThemeService
-		) {
+		public auth:AngularFireAuthModule,
+		private fb : Facebook,
+        ) {
       this.fingerprintOptions = {
         clientId: 'fingerprint',
         clientSecret: 'password',
         disableBackup: true
       }
-     }
+  }
 
   ngOnInit() {
   }
@@ -54,6 +59,14 @@ export class LoginAccPage implements OnInit {
 			}
     }
 	}
+	
+  FacebookLog(){
+  this.fb.login(['public_profile', 'user_friends', 'email'])
+  .then((res: FacebookLoginResponse) => console.log('Logged into Facebook!', res,this.router.navigate(['/home'])))
+  .catch(e => console.log('Error logging into Facebook', e));
+	this.fb.logEvent(this.fb.EVENTS.EVENT_NAME_ADDED_TO_CART);
+  }
+
   async showFingerprintDialog(){
     try{
       await this.platform.ready();
@@ -70,17 +83,4 @@ export class LoginAccPage implements OnInit {
       console.error(e);
     }  
   }
-	/*facebookLogin(): Promise<any> {
-    return this.facebook.login(['email'])
-      .then( response => {
-        const facebookCredential = firebase.auth.FacebookAuthProvider
-          .credential(response.authResponse.accessToken);
-  
-        firebase.auth().signInWithCredential(facebookCredential)
-          .then( success => { 
-            console.log("Firebase success: " + JSON.stringify(success)); 
-          });
-  
-      }).catch((error) => { console.log(error) });
-  }*/
 }
