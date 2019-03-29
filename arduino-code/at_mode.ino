@@ -1,7 +1,6 @@
 #include <SoftwareSerial.h>
 SoftwareSerial BTSerial(10, 11); // RX | TX
-bool con = false;
-int count = 0;
+
 void setup()
 {
   Serial.begin(9600);
