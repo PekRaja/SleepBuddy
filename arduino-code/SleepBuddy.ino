@@ -44,25 +44,15 @@ void calc()
 }
 void concheck()
 {
-  if (Serial.available())
-  {
-    String line = Serial.readStringUntil('\r');
-    Serial.println(line);
-    BTSerial.println(line);
-  }
   if (BTSerial.available())
   {
-    //Serial.write(BTSerial.read());
     String line = BTSerial.readStringUntil('\r');
-    Serial.print(line);
     if(line == "+CONNECTED")
     {
-      Serial.println("On");
       con = true;
     }
     if(line == "+DISCONNECTED")
     {
-      Serial.println("Off");
       con = false;
     }
   }
@@ -99,8 +89,6 @@ void loop()
   {
     if (counter < 1)
     {
-      BTSerial.print("Hello");
-      Serial.print("Hello");
       counter++; 
       currentMillis = millis();
     }
@@ -111,9 +99,6 @@ void loop()
     BTSerial.print(DifA);
     BTSerial.print(" ");
     BTSerial.println(DifB);
-    Serial.print(DifA);
-    Serial.print(" ");
-    Serial.println(DifB);
     currentMillis = millis();
     concheck();
   }
