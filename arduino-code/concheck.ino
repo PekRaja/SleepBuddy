@@ -6,7 +6,7 @@ void setup()
   Serial.begin(9600);
   Serial.println("Enter AT commands:");
   BTSerial.begin(9600);
-  pinMode(9, INPUT_PULLUP);
+  pinMode(3, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(3), concheck, CHANGE);
 }
 void concheck() // interrupt function
