@@ -39,10 +39,16 @@ void setup()
   pinMode(P3, INPUT);
   pinMode(3, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(3), concheck, CHANGE);
+  concheck();
 }
 void concheck()
 {
   con = !con;
+  int val = digitalRead(3);
+  if(con == false && val == HIGH)
+  {
+    con = true;
+  }
 }
 void calc()
 {
