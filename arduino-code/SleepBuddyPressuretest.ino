@@ -21,7 +21,8 @@ int B = 0;
 float DifA = 0.0;
 float DifB = 0.0;
 float pre = 0.0; //placeholder for pressure-sensor
-bool con = false;
+volatile bool con = false;
+bool Start = false;
 
 unsigned long previousMillis=0;
 unsigned long currentMillis=0;
@@ -36,6 +37,12 @@ void setup()
   pinMode(P1, INPUT);
   pinMode(P2, INPUT);
   pinMode(P3, INPUT);
+  pinMode(3, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(3), concheck, CHANGE);
+}
+void concheck()
+{
+  con = !con;
 }
 void calc()
 {
@@ -61,25 +68,8 @@ void calc()
     DifB = 100;
   }
 }
-void concheck()
-{
-  if (BTSerial.available())
-  {
-    String line = BTSerial.readStringUntil('\r');
-    if(line == "+CONNECTED")
-    {
-      con = true;
-    }
-    if(line == "+DISCONNECTED")
-    {
-      con = false;
-    }
-  }
-}
 void Header()
 {
-  BTSerial.print(" DifA");
-  BTSerial.println(" DifB");
   Serial.print("Time(ms)");
   Serial.print(" TS(ms)");
   Serial.print(" Time(min)");
@@ -145,35 +135,58 @@ void Pres()
 {
   pre = analogRead(P3);
 }
-void loop() 
-{  
-  while(con == false)
+void BTserial()
+{
+  BTSerial.print(pre);
+  BTSerial.print(" ");
+  BTSerial.print(DifA);
+  BTSerial.print(" ");
+  BTSerial.println(DifB);
+}
+void Begin()
+{
+  if (BTSerial.available())
   {
-    concheck();
+    String line = BTSerial.readStringUntil('\r');
+    if(line == "Start")
+    {
+      Start = true;
+    }
+    else if(line == "Stop")
+    {
+      Start = false;
+    }
   }
-  while(con == true)
+}
+void Time()
+{
+  interval = currentMillis-previousMillis;
+  previousMillis = currentMillis;
+  m = (float)previousMillis/1000/60;
+  h = (float)m / 60;
+}
+void loop() 
+{
+  while(Start == false)
   {
+    Begin();
+  }
+  while(con == true && Start == true)
+  {
+    
     if (counter < 1)
     {
       Header();
       counter++; 
       currentMillis = millis();
     }
-    interval = currentMillis-previousMillis;
-    previousMillis = currentMillis;
-    m = (float)previousMillis/1000/60;
-    h = (float)m / 60;
-    
+    Time();    
     piezo();
     calc();
     Pres();
-    BTSerial.print(pre);
-    BTSerial.print(" ");
-    BTSerial.print(DifA);
-    BTSerial.print(" ");
-    BTSerial.println(DifB);
+    BTserial();
     serial();
     currentMillis = millis();
-    concheck();
+    Begin();
   }
 }
