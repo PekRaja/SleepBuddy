@@ -3,6 +3,7 @@ SoftwareSerial BTSerial(10, 11); // RX | TX
 
 const int P1 = A0;    //Piezo
 const int P2 = A1;    //Piezo
+const int P3 = A2;    //Pressure sensor
 const int vari = 100; 
 int PinA[vari] = {0};  //Array to store Piezo P1 measurements
 int PinB[vari] = {0};  //Array to store Piezo P2 measurements
@@ -15,12 +16,9 @@ int A = 0;
 int B = 0;
 float DifA = 0.0;
 float DifB = 0.0;
-float pre = 1234.00; //placeholder for pressure-sensor
-bool con = false;
-
-unsigned long previousMillis=0;
-unsigned long currentMillis=0;
-unsigned long interval = 0;
+float pre = 0.0; 
+volatile bool con = false;
+bool Start = false;
 
 void setup() 
 {
@@ -28,6 +26,19 @@ void setup()
   BTSerial.begin(9600);
   pinMode(P1, INPUT);
   pinMode(P2, INPUT);
+  pinMode(P3, INPUT);
+  pinMode(3, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(3), concheck, CHANGE);
+  concheck();
+}
+void concheck()
+{
+  con = !con;
+  int val = digitalRead(3);
+  if(con == false && val == HIGH)
+  {
+    con = true;
+  }
 }
 void calc()
 {
@@ -40,21 +51,6 @@ void calc()
   if(DifB > 100)
   {
     DifB = 100;
-  }
-}
-void concheck()
-{
-  if (BTSerial.available())
-  {
-    String line = BTSerial.readStringUntil('\r');
-    if(line == "+CONNECTED")
-    {
-      con = true;
-    }
-    if(line == "+DISCONNECTED")
-    {
-      con = false;
-    }
   }
 }
 void piezo()
@@ -79,27 +75,45 @@ void piezo()
     delay(10);
   }
 }
-void loop() 
-{  
-  while(con == false)
+void BTserial()
+{
+  BTSerial.print(pre);
+  BTSerial.print(" ");
+  BTSerial.print(DifA);
+  BTSerial.print(" ");
+  BTSerial.println(DifB);
+}
+void Pres()
+{
+  pre = analogRead(P3);
+}
+void Begin()
+{
+  if (BTSerial.available())
   {
-    concheck();
-  }
-  while(con == true)
-  {
-    if (counter < 1)
+    String line = BTSerial.readStringUntil('\r');
+    if(line == "Start")
     {
-      counter++; 
-      currentMillis = millis();
+      Start = true;
     }
-    interval = currentMillis-previousMillis;
-    previousMillis = currentMillis;
+    else if(line == "Stop")
+    {
+      Start = false;
+    }
+  }
+}
+void loop()   //Might need to figure out something for when bluetooth is not connected
+{
+  while(Start == false)
+  {
+    Begin();
+  }
+  while(con == true && Start == true)
+  {
     piezo();
     calc();
-    BTSerial.print(DifA);
-    BTSerial.print(" ");
-    BTSerial.println(DifB);
-    currentMillis = millis();
-    concheck();
+    Pres();
+    BTserial();
+    Begin();
   }
 }
