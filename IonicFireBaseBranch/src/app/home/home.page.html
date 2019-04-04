@@ -11,7 +11,7 @@
 
 <ion-content>
   <div class="ion-padding">
-  <h1 align="center">WELCOME USER</h1>
+  <h1 align="center" *ngIf="username">WELCOME {{username}}</h1>
     <ion-button (click) = "ConnectToDevice()" [(color)] = "ConnectButtonColor" >
         <p [(innerHtml)] = "ConnectButtonText"></p>
         <ion-icon  slot="end" name="bluetooth"></ion-icon>

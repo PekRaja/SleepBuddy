@@ -6,6 +6,11 @@ import { BluetoothLE } from '@ionic-native/bluetooth-le/ngx';
 import { ThemeService } from '../theme.service';
 import { GraphicService } from '../graphic.service';
 import { GraphicName, Graphic } from '../graphics';
+import * as firebase from 'Firebase';
+import { snapshotToArray } from '../firebase';
+import { SleepDataServiceService } from '../sleep-data-service.service';
+import { UserService } from '../user.service';
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -19,7 +24,15 @@ export class HomePage implements OnInit {
   ConnectButtonText = 'connect';
   barChart: any;
   currentGraph: Graphic;
-  constructor(private ble2: BLE, private ngZone: NgZone, private themeService: ThemeService, private graphics: GraphicService) { }
+  username: string;
+  constructor(
+    private ble2: BLE,
+    private ngZone: NgZone,
+    private themeService: ThemeService,
+    private graphics: GraphicService,
+    private user: UserService,
+    private sleep_data: SleepDataServiceService,
+    private navCtrl: NavController) { }
   ngOnInit(): void {
     this.ionViewDidLoad();
   }

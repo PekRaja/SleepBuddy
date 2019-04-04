@@ -5,7 +5,7 @@ import { Facebook } from '@ionic-native/facebook/ngx';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import firebaseconfig from './firebase';
+import { firebaseconfig } from './firebase';
 import { AngularFireModule } from '@angular/fire';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
 import { AppComponent } from './app.component';
@@ -29,7 +29,6 @@ import { GraphicService } from './graphic.service';
     })
   ],
   providers: [
-    
     BLE,
     Facebook,
     StatusBar,

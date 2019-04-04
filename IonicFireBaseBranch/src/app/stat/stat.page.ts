@@ -20,13 +20,9 @@ export class StatPage implements OnInit{
     doughnutChart: any;
     lineChart: any;
 
-    constructor(public navCtrl: NavController) {
-
-    }
-
+    constructor(public navCtrl: NavController) { }
     ionViewDidLoad() {
         this.doughnutChart = new Chart(this.doughnutCanvas.nativeElement, {
-
             type: 'doughnut',
             data: {
                 labels: ["Deep sleep", "Normal sleep"],
@@ -43,11 +39,9 @@ export class StatPage implements OnInit{
                     ]
                 }]
             }
-
         });
 
         this.lineChart = new Chart(this.lineCanvas.nativeElement, {
-
             type: 'line',
             data: {
                 labels: ["12pm", "1am", "2am", "3am", "4am", "5am", "6am","7am"],
@@ -76,8 +70,6 @@ export class StatPage implements OnInit{
                     }
                 ]
             }
-
         });
-
     }
-    }
+}
