@@ -35,6 +35,8 @@ export class HomePage implements OnInit {
     private navCtrl: NavController) { }
   ngOnInit(): void {
     this.ionViewDidLoad();
+    // set username to show from sleep data service
+    this.username = this.sleep_data.username;
   }
   ionViewDidEnter() {
     this.currentGraph = this.graphics.CurrentGraphic;

@@ -69,13 +69,13 @@ export class SleepDataServiceService {
   }
   username: string;
   user: IUser;
+  /*
 
   users = [];
   data = [];
   piezo_a = [];
   piezo_b = [];
   pressure = [];
-  /*
   users_ref = firebase.database().ref(this.user_path);
   data_ref = firebase.database().ref(this.data_path);
   piezo_a_ref = firebase.database().ref(this.piezo_a_data_path);
@@ -85,7 +85,9 @@ export class SleepDataServiceService {
     return this.user_path += this.UID + '/';
   }
   */
-
+  getUsername(): string {
+    return this.username;
+  }
   initializeUserDocuments() {
     return new Promise<any>((resolve, reject) => {
       const currentUser = firebase.auth().currentUser;
@@ -105,7 +107,7 @@ export class SleepDataServiceService {
       username: _username
     }, (error) => {
       if (error) { console.log(error); } else {
-        console.log('wrote ' + { mail: _email, username: _username } + 'to' + DB.USER_PATH + this.UID);
+        console.log('wrote ' + { mail: _email, username: _username } + 'to' + DB.USER_PATH + this._user.user.uid);
     }
   });
   }
@@ -120,12 +122,14 @@ export class SleepDataServiceService {
         console.log('record exists');
         console.log(res.val());
       } else {
-        console.log('it does not exist!!!');
+        console.log('"users/" record does not exist!!!');
         // initialize db for user
         firebase.database().ref(DB.USER_PATH).child(UID).set({
           mail: this.user.mail,
           username: this.createInitialUsername()
-        } as IFirebaseUser).then((msg) => { console.log('created user, message: '); console.log(msg); });
+        } as IFirebaseUser).then((msg) => { if (msg) { console.log('created user, message: '); console.log(msg); } else {
+          console.log('created user'); }
+        });
       }
      }).catch(error => {
       console.log('return to login..');
@@ -139,20 +143,27 @@ export class SleepDataServiceService {
     return this._user.getUserEMail().split('@')[0].toUpperCase();
   }
 }
-
+// users/[UID]
 export interface ISleepBuddyUserData {
   mail: string;
   username: string;
 }
-/*
+// data/[UID]/measurement[index]/[index]
 export interface ISleepBuddyDataReference {
-
+  data_id: number;
+  date: string;
+  end: string;
+  start: string;
 }
+// pressure_data/[data_id]/[index]
 export interface ISleepBuddyPressureData {
-
+  is_pressed: boolean;
+  time: string;
 }
+// piezo_a_data/[data_id]/[index]
 export interface ISleepBuddyPiezoData {
-
+  avg: number;
+  max: number;
+  min: number;
+  timestamp: number;
 }
-...
-*/
