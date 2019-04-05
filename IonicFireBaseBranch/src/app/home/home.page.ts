@@ -2,15 +2,11 @@ import { Component, ViewChild, NgZone, OnInit } from '@angular/core';
 import { Chart } from 'chart.js';
 import { NavController } from '@ionic/angular';
 import { BLE } from '@ionic-native/ble/ngx';
-import { BluetoothLE } from '@ionic-native/bluetooth-le/ngx';
 import { ThemeService } from '../theme.service';
 import { GraphicService } from '../graphic.service';
 import { GraphicName, Graphic } from '../graphics';
-import * as firebase from 'Firebase';
-import { snapshotToArray } from '../firebase';
 import { SleepDataServiceService } from '../sleep-data-service.service';
 import { UserService } from '../user.service';
-
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -26,7 +22,7 @@ export class HomePage implements OnInit {
   currentGraph: Graphic;
   username: string;
   constructor(
-    private ble2: BLE,
+    private ble: BLE,
     private ngZone: NgZone,
     private themeService: ThemeService,
     private graphics: GraphicService,
@@ -46,13 +42,10 @@ export class HomePage implements OnInit {
     return GraphicName[g];
   }
   scan() {
-    // this.setStatus('Scanning for Bluetooth LE Devices');
     this.devices = [];
-    this.ble2.scan([], 5).subscribe(
+    this.ble.scan([], 5).subscribe(
       device => this.onDeviceDiscovered(device),
-      // error => this.scanError(error)
     );
-    // setTimeout(this.setStatus.bind(this),5000,'Scan complete');
   }
   onDeviceDiscovered(device) {
     console.log('Discovered ' + JSON.stringify(device, null, 2));
@@ -60,7 +53,7 @@ export class HomePage implements OnInit {
       this.devices.push(device);
     });
   }
-  ConnectToDevice() {
+  AdjustButtonStyle() {
     if (this.ConnectButtonColor === 'danger') {
       this.ConnectButtonColor = 'primary';
       this.ConnectButtonText = 'disconnect';
@@ -68,6 +61,9 @@ export class HomePage implements OnInit {
       this.ConnectButtonColor = 'danger';
       this.ConnectButtonText = 'connect';
     }
+  }
+  ConnectToDevice() {
+    this.AdjustButtonStyle();
   }
   ionViewDidLoad() {
     this.barChart = new Chart(this.barCanvas.nativeElement, {
@@ -106,4 +102,3 @@ export class HomePage implements OnInit {
     });
   }
 }
-

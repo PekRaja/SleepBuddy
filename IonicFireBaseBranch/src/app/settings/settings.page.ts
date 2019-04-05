@@ -8,7 +8,7 @@ import { ISetThemeEvent } from '../events';
 import { ThemeService } from '../theme.service';
 import { GraphicService } from '../graphic.service';
 import { Graphic, Graphics, GraphicName } from '../graphics';
-
+import { SleepDataServiceService } from '../sleep-data-service.service';
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.page.html',
@@ -32,34 +32,30 @@ import { Graphic, Graphics, GraphicName } from '../graphics';
 export class SettingsPage implements OnInit, OnDestroy {
   themes: Array<ITheme>;
   graphs: Array<Graphic>;
-  constructor(private themeService: ThemeService, private graphics: GraphicService) { }
+  username: string;
+  constructor(private themeService: ThemeService, private graphics: GraphicService, private sleep_data: SleepDataServiceService) { }
   ngOnInit() {
     this.themes = ThemesArray;
     this.graphs = Graphics;
+    this.username = this.sleep_data.username;
   }
   ngOnDestroy() {
     // TODO: this only needs to be done if the values have been changed since reading them from storage
     this.themeService.writeThemeInStorage();
     this.graphics.writeGraphToStorage();
   }
-  // Graphics
+
+  // Username
+
+  // Graphs
   graphName(g: number): string {
     return GraphicName[g];
   }
   graphicReady(): boolean {
-    console.log('graphicReady:');
-    if (this.graphics.CurrentGraphic != null) {
-      console.log('true');
-      return true;
-    } else {
-      console.log('false');
-      return false;
-    }
+    if (this.graphics.CurrentGraphic != null) { return true; } else { return false; }
   }
   isCurrentGraph(name: GraphicName) {
-    if (name === this.graphics.CurrentGraphic.Name) {
-      return true;
-    } else { return false; }
+    if (name === this.graphics.CurrentGraphic.Name) { return true; } else { return false; }
   }
   setGraph(g: Graphic) {
     this.graphics.setGraphic(g);
@@ -72,21 +68,12 @@ export class SettingsPage implements OnInit, OnDestroy {
     this.themeService.setTheme(t);
   }
   isCurrentTheme(type: ThemeType): boolean {
-    if (this.themeService.CurrentTheme.Type === type) {
-      return true;
-    } else { return false; }
+    if (this.themeService.CurrentTheme.Type === type) { return true; } else { return false; }
   }
   themeReady(): boolean {
-    console.log('themeReady:');
-    if (this.themeService.CurrentTheme != null) {
-      console.log('true');
-      return true;
-    } else {
-      console.log('false');
-      return false;
-    }
+    if (this.themeService.CurrentTheme != null) { return true; } else { return false; }
   }
-  // User profile
+  // TODO: User profile
   ChangePassword() {
     console.log('*Takes user to a page to change password*');
   }
