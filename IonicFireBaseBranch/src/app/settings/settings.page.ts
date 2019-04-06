@@ -33,20 +33,33 @@ export class SettingsPage implements OnInit, OnDestroy {
   themes: Array<ITheme>;
   graphs: Array<Graphic>;
   username: string;
+  isEditUsername: boolean;
   constructor(private themeService: ThemeService, private graphics: GraphicService, private sleep_data: SleepDataServiceService) { }
   ngOnInit() {
     this.themes = ThemesArray;
     this.graphs = Graphics;
     this.username = this.sleep_data.username;
+    this.isEditUsername = false;
   }
   ngOnDestroy() {
     // TODO: this only needs to be done if the values have been changed since reading them from storage
     this.themeService.writeThemeInStorage();
     this.graphics.writeGraphToStorage();
   }
-
   // Username
-
+  editUsername() {
+    this.isEditUsername = true;
+  }
+  confirmEditUsername() {
+    // upload new username to firebase
+    try {
+      this.sleep_data.setUsername(this.username);
+    } catch (error) {
+      console.log(error);
+    }
+    // show error popup if upload to firebase failed.
+    this.isEditUsername = false;
+  }
   // Graphs
   graphName(g: number): string {
     return GraphicName[g];

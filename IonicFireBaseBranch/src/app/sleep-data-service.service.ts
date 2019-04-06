@@ -10,83 +10,27 @@ import { NavController } from '@ionic/angular';
 })
 export class SleepDataServiceService {
   constructor(private _user: UserService, public router: Router, private navCtrl: NavController) {
-    console.log('sleep data service init');
-
-    console.log('user mail: ' + _user.user.mail);
-    console.log('uid: ', _user.user.uid);
     this.user = _user.user;
     if (this.user === null) {
-      console.log('user is undefined');
-      console.log('navigating to login page.');
       this.navCtrl.navigateRoot('/login-acc');
     } else {
-      console.log('SleepDataService.user exists..');
-      console.log(this.user);
       this.checkIfRecordsExist(this.user.uid);
       this.username = this.createInitialUsername();
-      console.log('default username:', this.username);
     }
-    /*
-    // get UID from firebase auth service
-    const uid = user.getUID();
-    this.UID = uid;
-    // create a directory for the user if none exists
-    this.user_path += this.UID + '/';
-    const fire = firebase.database().ref(this.user_path).once('value').then(res => {
-      console.log(res);
-    }).catch(error => {
-      console.log(error);
-    });
-    // set paths to find user data
-    this.data_path += this.UID + '/';
-    this.users_ref = firebase.database().ref(this.user_path);
-    this.data_ref = firebase.database().ref(this.data_path);
-
-    this.users_ref.on('value', res => {
-      this.users = snapshotToArray(res);
-      console.log('users:');
-      console.log(this.users);
-    });
-    if (this.users = []) {
-      this.initializeUserDocuments();
-    }
-    this.data_ref.on('value', res => {
-      this.data = snapshotToArray(res);
-      console.log('data:');
-      console.log(this.data);
-    });
-    this.pressure_ref.on('value', res => {
-      this.pressure = snapshotToArray(res);
-      console.log('pressure:');
-      console.log(this.pressure);
-    });
-    this.piezo_a_ref.on('value', res => {
-      this.piezo_a = snapshotToArray(res);
-      console.log('piezo a:');
-      console.log(this.piezo_a);
-    });
-    */
   }
   username: string;
   user: IUser;
-  /*
 
-  users = [];
-  data = [];
-  piezo_a = [];
-  piezo_b = [];
-  pressure = [];
-  users_ref = firebase.database().ref(this.user_path);
-  data_ref = firebase.database().ref(this.data_path);
-  piezo_a_ref = firebase.database().ref(this.piezo_a_data_path);
-  piezo_b_ref = firebase.database().ref(this.piezo_b_data_path);
-  pressure_ref = firebase.database().ref(this.pressure_data_path);
-  getUser() {
-    return this.user_path += this.UID + '/';
-  }
-  */
   getUsername(): string {
     return this.username;
+  }
+  setUsername(_username: string) {
+    firebase.database().ref(DB.USER_PATH + this._user.getUID()).set({
+      mail: this.user.mail,
+      username: _username
+    }).then((res) => {
+      if (!res) { console.log('username set.')} else { console.log("couldn't set username:" + res)} 
+    });
   }
   initializeUserDocuments() {
     return new Promise<any>((resolve, reject) => {
@@ -112,6 +56,17 @@ export class SleepDataServiceService {
   });
   }
 
+  readUsernameFromFirebase() {
+    firebase.database().ref(DB.USER_PATH + this.user.uid).once('value').then(res => {
+      if (res.exists) {
+        console.log(res);
+        return 'username from db';
+      } else {
+        console.log('default');
+        return 'default username';
+      }
+    });
+  }
   checkIfRecordsExist(UID: string) {
     console.log('Checking records...');
     const p = DB.USER_PATH + UID + '/';

@@ -14,11 +14,9 @@ export interface IUser {
 export class UserService {
 	user: IUser;
 	constructor(private afAuth: AngularFireAuth) { }
-
 	setUser(user: IUser) {
 		this.user = user;
 	}
-
 	getUsername(): string {
 		return this.user.mail;
 	}
@@ -28,15 +26,12 @@ export class UserService {
 	reAuth(mail: string, password: string) {
 		return this.afAuth.auth.currentUser.reauthenticateWithCredential(auth.EmailAuthProvider.credential(mail + '@codedamn.com', password));
 	}
-
 	updatePassword(newpassword: string) {
 		return this.afAuth.auth.currentUser.updatePassword(newpassword);
 	}
-
 	updateEmail(newemail: string) {
 		return this.afAuth.auth.currentUser.updateEmail(newemail + '@codedamn.com');
 	}
-
 	async isAuthenticated() {
 		console.log('isAuthenticated');
 		if (this.user) { return true; }
@@ -50,7 +45,6 @@ export class UserService {
 		}
 		return false;
 	}
-
 	getUID(): string {
 		return this.user.uid;
 	}
