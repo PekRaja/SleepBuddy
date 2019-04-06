@@ -7,6 +7,7 @@ import { FingerprintAIO, FingerprintOptions } from '@ionic-native/fingerprint-ai
 import { LoadingController } from '@ionic/angular';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { ThemeService } from '../theme.service';
 
 @Component({
   selector: 'app-login-acc',
@@ -27,6 +28,7 @@ export class LoginAccPage implements OnInit {
     public user: UserService,
     public auth: AngularFireAuthModule,
     private fb: Facebook,
+    private theme: ThemeService
   ) {
     this.fingerprintOptions = {
       clientId: 'fingerprint',
