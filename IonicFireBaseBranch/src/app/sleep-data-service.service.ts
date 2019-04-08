@@ -15,7 +15,9 @@ export class SleepDataServiceService {
       this.navCtrl.navigateRoot('/login-acc');
     } else {
       this.checkIfRecordsExist(this.user.uid);
-      this.username = this.createInitialUsername();
+      this.readUsernameFromFirebase();
+      console.log(this.username);
+      // this.username = this.createInitialUsername();
     }
   }
   username: string;
@@ -58,27 +60,23 @@ export class SleepDataServiceService {
 
   readUsernameFromFirebase() {
     firebase.database().ref(DB.USER_PATH + this.user.uid).once('value').then(res => {
+      console.log('reading username from firebase...');
       if (res.exists) {
-        console.log(res);
-        return 'username from db';
+        console.log('username from db');
+        this.username = res.val().username;
+        console.log(res.val().username);
       } else {
-        console.log('default');
-        return 'default username';
+        this.createInitialUsername();
+        console.log('default username');
       }
     });
   }
   checkIfRecordsExist(UID: string) {
-    console.log('Checking records...');
     const p = DB.USER_PATH + UID + '/';
-    console.log('searching db at path:', p);
-
-    const fire = firebase.database().ref(p).once('value').then(res => {
+    firebase.database().ref(p).once('value').then(res => {
       if (res.exists()) {
-        console.log('record exists');
         console.log(res.val());
       } else {
-        console.log('"users/" record does not exist!!!');
-        // initialize db for user
         firebase.database().ref(DB.USER_PATH).child(UID).set({
           mail: this.user.mail,
           username: this.createInitialUsername()

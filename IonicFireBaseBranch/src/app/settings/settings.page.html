@@ -28,7 +28,7 @@
       <!-- make this a small round button a little to the right of the username or all the way to the right  -->
       <h1 size="small">{{ username }}</h1>
     </ion-text>
-    <ion-button item-right slot="end" (click)="editUsername()"><ion-icon color="secondary" name="create"></ion-icon></ion-button>
+    <ion-button item-right slot="end" shape="round" (click)="editUsername()"><ion-icon color="secondary" name="create"></ion-icon></ion-button>
   </ion-item>
   <ion-item *ngIf="isEditUsername">
     <ion-input type="text" placeholder="new username" [(ngModel)]="username" slot="start"></ion-input>
