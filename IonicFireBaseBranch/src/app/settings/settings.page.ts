@@ -34,12 +34,15 @@ export class SettingsPage implements OnInit, OnDestroy {
   graphs: Array<Graphic>;
   username: string;
   isEditUsername: boolean;
+  mail: string;
+  joined: string;
   constructor(private themeService: ThemeService, private graphics: GraphicService, private sleep_data: SleepDataServiceService) { }
   ngOnInit() {
     this.themes = ThemesArray;
     this.graphs = Graphics;
     this.username = this.sleep_data.username;
     this.isEditUsername = false;
+    this.mail = this.sleep_data.user.mail;
   }
   ngOnDestroy() {
     // TODO: this only needs to be done if the values have been changed since reading them from storage

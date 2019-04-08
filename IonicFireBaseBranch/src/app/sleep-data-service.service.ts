@@ -68,10 +68,9 @@ export class SleepDataServiceService {
       mail: this.user.mail,
       username: _username
     }).then((res) => {
-      if (!res) { console.log('username set.')} else { console.log('couldn\'t set username:' + res); }
+      if (!res) { console.log('username set.'); } else { console.log('couldn\'t set username:' + res); }
     });
   }
-
   initializeUserDocuments() {
     return new Promise<any>((resolve, reject) => {
       const currentUser = firebase.auth().currentUser;
@@ -95,7 +94,6 @@ export class SleepDataServiceService {
     }
   });
   }
-
 }
 // users/[UID]
 export interface ISleepBuddyUserData {
