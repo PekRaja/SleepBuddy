@@ -15,8 +15,9 @@ import { BLE } from '@ionic-native/ble/ngx';
 import { IonicStorageModule } from '@ionic/storage';
 import { ThemeService } from './theme.service';
 import { GraphicService } from './graphic.service';
+import { BluetoothSerialPipe } from './bluetooth-serial.pipe';
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, BluetoothSerialPipe],
   entryComponents: [],
   imports: [
     BrowserModule,
