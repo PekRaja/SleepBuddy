@@ -1,6 +1,6 @@
 import { Component, ViewChild, NgZone, OnInit } from '@angular/core';
 import { Chart } from 'chart.js';
-import { NavController } from '@ionic/angular';
+import { NavController, MenuController } from '@ionic/angular';
 import { BLE } from '@ionic-native/ble/ngx';
 import { ThemeService } from '../theme.service';
 import { GraphicService } from '../graphic.service';
@@ -21,6 +21,7 @@ export class HomePage implements OnInit {
   barChart: any;
   currentGraph: Graphic;
   username: string;
+  isUsernameInit = false;
   constructor(
     private ble: BLE,
     private ngZone: NgZone,
@@ -28,11 +29,25 @@ export class HomePage implements OnInit {
     private graphics: GraphicService,
     private user: UserService,
     private sleep_data: SleepDataServiceService,
-    private navCtrl: NavController) { }
+    private navCtrl: NavController,
+    private menuCtrl: MenuController) {}
   ngOnInit(): void {
+    this.menuCtrl.enable(true);
     this.ionViewDidLoad();
-    // set username to show from sleep data service
-    this.username = this.sleep_data.username;
+  }
+  tryFBUsername(): boolean {
+    if (this.username) {
+      if (this.username === this.sleep_data.username) {
+        return true;
+      }
+    }
+    try {
+      this.sleep_data.readUsernameFromFirebase();
+      this.username = this.sleep_data.username;
+      return true;
+    } catch {
+      console.log('could not read firebase username');
+    }
   }
   ionViewDidEnter() {
     this.currentGraph = this.graphics.CurrentGraphic;
@@ -63,6 +78,7 @@ export class HomePage implements OnInit {
     }
   }
   ConnectToDevice() {
+    // Connect from homescreen logic, only to be shown when the app knows a sleepbuddy device to pair with
     this.AdjustButtonStyle();
   }
   ionViewDidLoad() {

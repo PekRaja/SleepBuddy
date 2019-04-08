@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { UserService } from '../user.service';
-import { Platform } from '@ionic/angular';
+import { Platform, MenuController } from '@ionic/angular';
 import { FingerprintAIO, FingerprintOptions } from '@ionic-native/fingerprint-aio/ngx';
 import { LoadingController } from '@ionic/angular';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
@@ -28,7 +28,8 @@ export class LoginAccPage implements OnInit {
     public user: UserService,
     public auth: AngularFireAuthModule,
     private fb: Facebook,
-    private theme: ThemeService
+    private theme: ThemeService,
+    private menuCtrl: MenuController
   ) {
     this.fingerprintOptions = {
       clientId: 'fingerprint',
@@ -37,7 +38,9 @@ export class LoginAccPage implements OnInit {
     };
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.menuCtrl.enable(false);
+  }
   async login() {
     const { email, password } = this;
     try {

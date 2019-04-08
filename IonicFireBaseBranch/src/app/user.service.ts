@@ -13,6 +13,7 @@ export interface IUser {
 })
 export class UserService {
 	user: IUser;
+	username: string;
 	constructor(private afAuth: AngularFireAuth) { }
 	setUser(user: IUser) {
 		this.user = user;

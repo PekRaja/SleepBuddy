@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
-import { AlertController } from '@ionic/angular';
+import { AlertController, MenuController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { ThemeService } from '../theme.service';
 import { UserService } from '../user.service';
@@ -16,15 +16,18 @@ export class RegisterPagePage implements OnInit {
   mail = '';
   password = '';
   Checkpassword = '';
-
+  username = '';
   constructor(public afAuth: AngularFireAuth,
     public alert: AlertController,
     public route: Router,
     private themeService: ThemeService,
-    private user: UserService
+    private user: UserService,
+    private menuCtrl: MenuController
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.menuCtrl.enable(false);
+  }
 
   async register() {
     const { mail, password, Checkpassword } = this;
@@ -37,6 +40,7 @@ export class RegisterPagePage implements OnInit {
       console.log(res);
       this.showAlert('Succes!', 'Welcome!');
       this.route.navigate(['/login']);
+      this.user.username = this.username;
     } catch (error) {
       console.dir(error);
       this.showAlert('Error', error.message);
