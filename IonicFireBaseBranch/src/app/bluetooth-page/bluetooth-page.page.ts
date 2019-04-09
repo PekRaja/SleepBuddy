@@ -16,8 +16,14 @@ export class BluetoothPagePage implements OnInit {
   }
   devices: any[] = [];
   statusMessage: string;
-  data: any;
-  constructor(public navCtrl: NavController, public toastController: ToastController, private ble: BLE, private ngZone: NgZone, private themeService: ThemeService, private sleep_data: SleepDataServiceService) { }
+  data: = '';
+  constructor(
+    public navCtrl: NavController,
+    public toastController: ToastController,
+    private ble: BLE,
+    private ngZone: NgZone,
+    private themeService: ThemeService,
+    private sleep_data: SleepDataServiceService) { }
   connect() {
     const BLE_MAC_ADDR = '00:15:87:20:AE:DB';
     const SERVICE_UUID = 'ffe0';
@@ -36,19 +42,6 @@ export class BluetoothPagePage implements OnInit {
           console.log(this.data);
         }, (error) => {
           console.log('error on startnotification');
-          console.log(error);
-        })
-        this.ble.read(BLE_MAC_ADDR, get64BitUUID(SERVICE_UUID), get64BitUUID(CHARACTERISTIC_UUID)).then((val) => {
-          this.data += bytesToString(val);
-          console.log('value arrived on ble read.');
-          console.log('raw');
-          console.log(val);
-          console.log('json.stringify');
-          console.log(JSON.stringify(val));
-          console.log('bytesToString');
-          console.log(bytesToString(val));
-        }).catch((error) => {
-          console.log('failed to receive data...');
           console.log(error);
         });
       },
