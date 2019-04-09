@@ -20,7 +20,9 @@ const routes: Routes = [
   { path: 'register-page', loadChildren: './register-page/register-page.module#RegisterPagePageModule' },
   { path: 'login-acc', loadChildren: './login-acc/login-acc.module#LoginAccPageModule' },
   { path: 'stat', loadChildren: './stat/stat.module#StatPageModule' },
-  { path: 'settings', loadChildren: './settings/settings.module#SettingsPageModule' },  { path: 'bluetooth-page', loadChildren: './bluetooth-page/bluetooth-page.module#BluetoothPagePageModule' }
+  { path: 'settings', loadChildren: './settings/settings.module#SettingsPageModule' },
+  { path: 'bluetooth-page', loadChildren: './bluetooth-page/bluetooth-page.module#BluetoothPagePageModule' },
+  { path: 'bluetooth-backup', loadChildren:'./bluetooth-backup/bluetooth-backup.module#BluetoothBackupPageModule'}
 
 ];
 

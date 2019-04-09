@@ -16,8 +16,10 @@ import { IonicStorageModule } from '@ionic/storage';
 import { ThemeService } from './theme.service';
 import { GraphicService } from './graphic.service';
 import { BluetoothSerialPipe } from './bluetooth-serial.pipe';
+import { BluetoothBackupComponent } from './bluetooth-backup/bluetooth-backup.component';
+import { TestPipe } from './test.pipe';
 @NgModule({
-  declarations: [AppComponent, BluetoothSerialPipe],
+  declarations: [AppComponent, BluetoothSerialPipe, BluetoothBackupComponent, TestPipe],
   entryComponents: [],
   imports: [
     BrowserModule,

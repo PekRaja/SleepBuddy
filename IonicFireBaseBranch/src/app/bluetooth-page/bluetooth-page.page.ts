@@ -63,10 +63,6 @@ export class BluetoothPagePage implements OnInit {
       console.log(a[0])
       
     }
-
-
-  
-  
   scan(){
     //this.setStatus('Scanning for Bluetooth LE Devices');
     this.devices = [];

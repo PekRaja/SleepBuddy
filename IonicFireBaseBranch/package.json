@@ -25,6 +25,7 @@
     "@capacitor/core": "1.0.0-beta.17",
     "@ionic-native/ble": "^5.2.0",
     "@ionic-native/bluetooth-le": "^5.2.0",
+    "@ionic-native/bluetooth-serial": "^5.4.0",
     "@ionic-native/core": "^5.0.0",
     "@ionic-native/facebook": "^5.2.0",
     "@ionic-native/fingerprint-aio": "^5.2.0",
@@ -37,6 +38,7 @@
     "color": "^3.1.0",
     "cordova-android": "7.1.4",
     "cordova-plugin-ble-central": "^1.2.2",
+    "cordova-plugin-bluetooth-serial": "0.4.7",
     "cordova-plugin-bluetoothle": "^4.5.3",
     "cordova-plugin-compat": "^1.2.0",
     "cordova-plugin-device": "^2.0.2",
@@ -100,7 +102,8 @@
       "cordova-plugin-ble-central": {},
       "cordova-plugin-bluetoothle": {},
       "cordova-plugin-fingerprint-aio": {},
-      "cordova-sqlite-storage": {}
+      "cordova-sqlite-storage": {},
+      "cordova-plugin-bluetooth-serial": {}
     },
     "platforms": [
       "android"
