@@ -1,6 +1,8 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { NavController, ToastController } from '@ionic/angular';
 import { BLE } from '@ionic-native/ble/ngx';
+import { ThemeService } from '../theme.service';
+import { SleepDataServiceService } from '../sleep-data-service.service';
 
 
 @Component({
@@ -10,15 +12,11 @@ import { BLE } from '@ionic-native/ble/ngx';
 })
 export class BluetoothPagePage implements OnInit {
   ngOnInit(): void {
-    //throw new Error("Method not implemented.");
+    console.log(this.sleep_data.user);
   }
-
   devices:any[] = [];
   statusMessage: string;
-
-  constructor(public navCtrl: NavController,public toastController: ToastController,private ble: BLE, private ngZone: NgZone){
-
-  }
+  constructor(public navCtrl: NavController,public toastController: ToastController,private ble: BLE, private ngZone: NgZone, private themeService: ThemeService, private sleep_data: SleepDataServiceService) { }
   connect(){
     this.ble.connect('00:15:87:20:AE:DB').subscribe(async peripheralData => {
       const toast = await this.toastController.create({
@@ -29,33 +27,20 @@ export class BluetoothPagePage implements OnInit {
        console.log(peripheralData);
     },
     peripheralData => {
-      console.log("Disconnect");
+      console.log('Disconnect');
     });
-   
   }
-
   scan(){
-    //this.setStatus('Scanning for Bluetooth LE Devices');
     this.devices = [];
-
-    this.ble.scan([],5).subscribe(
+    this.ble.scan([], 5).subscribe(
       device => this.onDeviceDiscovered(device),
-      //error => this.(error)
     );
-    //setTimeout(this.setStatus.bind(this),5000,'Scan complete');
   }
-
   onDeviceDiscovered(device){
-    console.log('Discovered ' + JSON.stringify(device,null,2));
-    this.ngZone.run(()=>{
+    console.log('Discovered ' + JSON.stringify(device, null, 2));
+    this.ngZone.run(() => {
       this.devices.push(device);
-      console.log(device)
-      //this.error.push(error);
-      
-    })
-    
-  }
-  async presentToast() {
-    
+      console.log(device);
+    });
   }
 }

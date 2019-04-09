@@ -11,12 +11,18 @@ import { NavController } from '@ionic/angular';
 export class SleepDataServiceService {
   constructor(private _user: UserService, public router: Router, private navCtrl: NavController) {
     this.user = _user.user;
-    if (this.user === null) {
+    if (this.user === (null || undefined)) {
       this.navCtrl.navigateRoot('/login');
     } else {
+      try {
       this.checkIfRecordsExist(this.user.uid);
       this.readUsernameFromFirebase();
       console.log(this.username);
+ 
+      } catch (error) {
+        console.log(error);
+        this.navCtrl.navigateRoot('/login');
+      }
     }
   }
   user: IUser;
@@ -34,6 +40,7 @@ export class SleepDataServiceService {
     });
   }
   checkIfRecordsExist(UID: string) {
+    console.log(UID);
     const p = DB.USER_PATH + UID + '/';
     firebase.database().ref(p).once('value').then(res => {
       if (res.exists()) {

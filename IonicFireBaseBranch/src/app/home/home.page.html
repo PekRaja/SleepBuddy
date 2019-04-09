@@ -11,19 +11,20 @@
 
 <ion-content>
   <div class="ion-padding">
-      <h1 align="center" *ngIf="tryFBUsername()">Welcome {{ username }}</h1>
+      <h1 align="center" *ngIf="tryFBUsername()">Welcome <ion-text color="primary">{{ username }}</ion-text></h1>
       <ion-button (click) = "ConnectToDevice()" [(color)] = "ConnectButtonColor" >
         <p [(innerHtml)] = "ConnectButtonText"></p>
         <ion-icon  slot="end" name="bluetooth"></ion-icon>
     </ion-button>
-    <ion-button href="/bluetooth-page" color="secondary">Go to Bleutooth page</ion-button>  
   </div>
   <ion-card>
     <ion-card-header *ngIf="currentGraph" color="secondary">
       {{ graphName(currentGraph.Name) }}
     </ion-card-header>
     <ion-card-content>
-      <canvas #barCanvas></canvas>
+      <canvas #barCanvas>
+
+      </canvas>
     </ion-card-content>
   </ion-card>
 </ion-content>

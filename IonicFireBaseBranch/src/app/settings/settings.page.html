@@ -24,11 +24,11 @@
 
   <ion-card class="ion-padding">
   <ion-item *ngIf="!isEditUsername">
-    <ion-text item-left slot="start" color="secondary">
+    <ion-text slot="start" color="secondary">
       <!-- make this a small round button a little to the right of the username or all the way to the right  -->
       <h1 size="small">{{ username }}</h1>
     </ion-text>
-    <ion-button item-right slot="end" shape="round" (click)="editUsername()"><ion-icon color="secondary" name="create"></ion-icon></ion-button>
+    <ion-button slot="end" size="default" shape="round" (click)="editUsername()"><ion-icon color="secondary" name="create"></ion-icon></ion-button>
   </ion-item>
   <ion-item *ngIf="isEditUsername">
     <ion-input type="text" placeholder="new username" [(ngModel)]="username" slot="start"></ion-input>
@@ -40,7 +40,7 @@
     <br>
     <ion-label class="ion-padding" color="secondary">JOINED: 21/03/2019</ion-label>
     <br>
-    <ion-button color="secondary" class="ion-padding">Change password</ion-button>
-    <ion-button color="secondary" class="ion-padding">Request data</ion-button>
+    <ion-button color="secondary" expand="full">Change password</ion-button>
+    <ion-button color="secondary" expand="full">Request data</ion-button>
   </ion-card>
 </ion-content>
