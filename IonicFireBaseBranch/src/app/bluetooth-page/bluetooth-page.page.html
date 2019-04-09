@@ -6,18 +6,19 @@
     <ion-title>
       BLE Scanner
     </ion-title>
-  <ion-button (click)="scan()" slot="end" color="secondary">
+  <ion-button *ngIf="!isConnected" (click)="scan()" slot="end" color="secondary">
       <ion-icon name="Bluetooth"></ion-icon>
       <p>Scan</p>
     </ion-button>
-    <ion-button (click)="connect()">
+    <ion-button *ngIf="!isConnected" (click)="connect()">
       <ion-icon name="Bluetooth"></ion-icon>
       <p>Connect</p>
     </ion-button>
+    <ion-button *ngIf="!isConnected" (click)="disconnect()">Disconnect</ion-button>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="!isConnected">
   <ion-list>
     <ion-card-content ion-item *ngFor="let device of devices">
       <p>{{ device.name || 'Unnamed'}}</p>
@@ -25,4 +26,7 @@
       <p>RSSI: {{ device.rssi }}</p>
     </ion-card-content>
   </ion-list>
+</ion-content>
+<ion-content *ngIf="isConnected">
+  <h1>BLE is connected</h1>
 </ion-content>

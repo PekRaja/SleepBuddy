@@ -2,7 +2,7 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { NavController, ToastController } from '@ionic/angular';
 import { BLE } from '@ionic-native/ble/ngx';
 import { ThemeService } from '../theme.service';
-import { SleepDataServiceService } from '../sleep-data-service.service';
+import { SleepDataServiceService, BLE_MAC_ADDR, SERVICE_UUID, CHARACTERISTIC_UUID } from '../sleep-data-service.service';
 
 
 @Component({
@@ -16,7 +16,8 @@ export class BluetoothPagePage implements OnInit {
   }
   devices: any[] = [];
   statusMessage: string;
-  data = '';
+  data = "";
+  isConnected = false;
   constructor(
     public navCtrl: NavController,
     public toastController: ToastController,
@@ -25,14 +26,10 @@ export class BluetoothPagePage implements OnInit {
     private themeService: ThemeService,
     private sleep_data: SleepDataServiceService) { }
   connect() {
-    const BLE_MAC_ADDR = '00:15:87:20:AE:DB';
-    const SERVICE_UUID = 'ffe0';
-    const CHARACTERISTIC_UUID = 'ffe1';
     this.ble.connect(BLE_MAC_ADDR).subscribe(
       res => {
-        console.log('Response from subscribe on connect');
-        console.log(res);
-        console.log(JSON.stringify(res));
+        console.log('Connect to SLEEPBUDDY.');
+        this.isConnected = true;
         this.ble.startNotification(BLE_MAC_ADDR, get64BitUUID(SERVICE_UUID), get64BitUUID(CHARACTERISTIC_UUID)).subscribe((data) => {
           console.log('DATA ARRIVED');
           console.log(data);
@@ -48,11 +45,15 @@ export class BluetoothPagePage implements OnInit {
       error => { console.log('error on connect'); console.log(error); },
       () => { console.log('connect completed'); });
   }
+  bleDisconnect() {
+    this.ble.disconnect(BLE_MAC_ADDR).then(() => {
+      console.log('Disconnected from sleepbuddy.');
+      this.isConnected = false;
+    }).catch((error) => console.log(error));
+  }
   scan() {
     this.devices = [];
-    this.ble.scan([], 5).subscribe(
-      device => this.onDeviceDiscovered(device),
-    );
+    this.ble.scan([], 5).subscribe(device => this.onDeviceDiscovered(device));
   }
   onDeviceDiscovered(device) {
     console.log('Discovered ' + JSON.stringify(device, null, 2));

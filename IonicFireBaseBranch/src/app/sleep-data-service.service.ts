@@ -102,6 +102,10 @@ export class SleepDataServiceService {
   });
   }
 }
+// 
+export const BLE_MAC_ADDR = '00:15:87:20:AE:DB';
+export const SERVICE_UUID = 'ffe0';
+export const CHARACTERISTIC_UUID = 'ffe1';
 // users/[UID]
 export interface ISleepBuddyUserData {
   mail: string;

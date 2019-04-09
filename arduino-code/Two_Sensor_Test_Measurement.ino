@@ -1,5 +1,9 @@
 #include <SoftwareSerial.h>
-SoftwareSerial BTSerial(10, 11); // RX | TX
+// const int _RX = 10;
+// const int _TX = 11;
+const int _RX = 2;
+const int _TX = 3;
+SoftwareSerial BTSerial(_RX, _TX); // RX | TX
 
 const int P1 = A0;
 const int P2 = A1;
