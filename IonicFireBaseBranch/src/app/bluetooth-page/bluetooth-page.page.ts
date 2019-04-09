@@ -16,7 +16,7 @@ export class BluetoothPagePage implements OnInit {
   }
   devices: any[] = [];
   statusMessage: string;
-  data: = '';
+  data = '';
   constructor(
     public navCtrl: NavController,
     public toastController: ToastController,
