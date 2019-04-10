@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import * as firebase from 'Firebase';
-import { snapshotToArray, IFirebaseUser } from './firebase';
-import { UserService, IUser } from './user.service';
-import * as DB from './db_paths';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
+import * as firebase from 'Firebase';
+import * as DB from './db_paths';
+import { IFirebaseUser } from './firebase';
+import { IUser, UserService } from './user.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -18,7 +18,6 @@ export class SleepDataServiceService {
       this.checkIfRecordsExist(this.user.uid);
       this.readUsernameFromFirebase();
       console.log(this.username);
- 
       } catch (error) {
         console.log(error);
         this.navCtrl.navigateRoot('/login');
@@ -64,7 +63,6 @@ export class SleepDataServiceService {
   createInitialUsername() {
     return this._user.getUserEMail().split('@')[0].toUpperCase();
   }
-
   // GET
   getUsername(): string {
     return this.username;
@@ -102,8 +100,9 @@ export class SleepDataServiceService {
   });
   }
 }
-// 
+export const SLEEPBUDDY_AT_NAME ='SleepBuddy'; 
 export const BLE_MAC_ADDR = '00:15:87:20:AE:DB';
+export const BLE_MAC_ADDR_FINLAND = '3C:A5:39:90:D7:87';
 export const SERVICE_UUID = 'ffe0';
 export const CHARACTERISTIC_UUID = 'ffe1';
 // users/[UID]

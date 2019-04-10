@@ -14,7 +14,7 @@
       <ion-icon name="Bluetooth"></ion-icon>
       <p>Connect</p>
     </ion-button>
-    <ion-button *ngIf="!isConnected" (click)="disconnect()">Disconnect</ion-button>
+    <ion-button *ngIf="isConnected" (click)="bleDisconnect()">Disconnect</ion-button>
   </ion-toolbar>
 </ion-header>
 

@@ -27,7 +27,7 @@ export class BluetoothPagePage implements OnInit {
     private sleep_data: SleepDataServiceService) { }
   connect() {
     this.ble.connect(BLE_MAC_ADDR).subscribe(
-      res => {
+      (res) => {
         console.log('Connect to SLEEPBUDDY.');
         this.isConnected = true;
         this.ble.startNotification(BLE_MAC_ADDR, get64BitUUID(SERVICE_UUID), get64BitUUID(CHARACTERISTIC_UUID)).subscribe((data) => {
@@ -42,8 +42,15 @@ export class BluetoothPagePage implements OnInit {
           console.log(error);
         });
       },
-      error => { console.log('error on connect'); console.log(error); },
+      (error) => { console.log('error on connect'); console.log(error); },
       () => { console.log('connect completed'); });
+  }
+  dataHandle(data: string) {
+    if (data.length == 1) {
+      // it's pressure data
+    } else {
+      // it's piëzo data
+    }
   }
   bleDisconnect() {
     this.ble.disconnect(BLE_MAC_ADDR).then(() => {
@@ -63,7 +70,15 @@ export class BluetoothPagePage implements OnInit {
     });
   }
 }
-
+export interface IPiezoData {
+  shoulder: number;
+  thigh: number;
+  timestamp: number;
+}
+export interface IPressureData {
+  isPressed: boolean;
+  timestamp: number;
+}
 // ASCII only
 export function stringToBytes(string) {
   var array = new Uint8Array(string.length);
